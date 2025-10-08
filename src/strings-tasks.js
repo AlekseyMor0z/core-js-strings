@@ -277,8 +277,8 @@ function reverseString(str) {
  *   orderAlphabetically('textbook') => 'bekoottx'
  *   orderAlphabetically('abc123xyz') => '123abcxyz'
  */
-function orderAlphabetically(/* str */) {
-  throw new Error('Not implemented');
+function orderAlphabetically(str) {
+  return str.split('').sort().join('');
 }
 
 /**
@@ -338,8 +338,14 @@ function countVowels(str) {
  *   isPalindrome('apple') => false
  *   isPalindrome('No lemon, no melon') => true
  */
-function isPalindrome(/* str */) {
-  throw new Error('Not implemented');
+function isPalindrome(str) {
+  const cleanedString = str.replace(/[\W_]/g, '');
+  const newStr = cleanedString.split('').reverse().join('');
+
+  if (newStr.toLowerCase() === cleanedString.toLowerCase()) {
+    return true;
+  }
+  return false;
 }
 
 /**
@@ -354,8 +360,10 @@ function isPalindrome(/* str */) {
  *   findLongestWord('A long and winding road') => 'winding'
  *   findLongestWord('No words here') => 'words'
  */
-function findLongestWord(/* sentence */) {
-  throw new Error('Not implemented');
+function findLongestWord(sentence) {
+  return sentence.split(' ').reduce((longest, curr) => {
+    return curr.length > longest.length ? curr : longest;
+  });
 }
 
 /**
@@ -368,8 +376,13 @@ function findLongestWord(/* sentence */) {
  *   reverseWords('Hello World') => 'olleH dlroW'
  *   reverseWords('The Quick Brown Fox') => 'ehT kciuQ nworB xoF'
  */
-function reverseWords(/* str */) {
-  throw new Error('Not implemented');
+function reverseWords(str) {
+  return str
+    .split(' ')
+    .map((word) => {
+      return word.split('').reverse().join('');
+    })
+    .join(' ');
 }
 
 /**
@@ -383,8 +396,17 @@ function reverseWords(/* str */) {
  *   invertCase('JavaScript is Fun') => 'jAVAsCRIPT IS fUN'
  *   invertCase('12345') => '12345'
  */
-function invertCase(/* str */) {
-  throw new Error('Not implemented');
+function invertCase(str) {
+  let newStr = '';
+  for (let index = 0; index < str.length; index += 1) {
+    const char = str[index];
+    if (char === str[index].toUpperCase()) {
+      newStr += str[index].toLowerCase();
+    } else {
+      newStr += str[index].toUpperCase();
+    }
+  }
+  return newStr;
 }
 
 /**
@@ -414,8 +436,9 @@ function getStringFromTemplate(firstName, lastName) {
  *   extractNameFromTemplate('Hello, John Doe!') => 'John Doe'
  *   extractNameFromTemplate('Hello, Chuck Norris!') => 'Chuck Norris'
  */
-function extractNameFromTemplate(/* value */) {
-  throw new Error('Not implemented');
+function extractNameFromTemplate(value) {
+  const arr = value.split(' ');
+  return `${arr.at(-2)} ${arr.at(-1).slice(0, -1)}`;
 }
 
 /**
@@ -448,8 +471,8 @@ function unbracketTag(str) {
  *   ],
  *   'info@gmail.com' => ['info@gmail.com']
  */
-function extractEmails(/* str */) {
-  throw new Error('Not implemented');
+function extractEmails(str) {
+  return str.split(';');
 }
 
 /**
@@ -468,8 +491,30 @@ function extractEmails(/* str */) {
  *    => 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
  *
  */
-function encodeToRot13(/* str */) {
-  throw new Error('Not implemented');
+function encodeToRot13(str) {
+  const newStr = str
+    .split('')
+    .map((char) => {
+      const code = char.charCodeAt(char);
+      if (code < 65 || (code > 90 && code < 97)) {
+        return String.fromCharCode(code);
+      }
+      if (code < 78) {
+        return String.fromCharCode(code + 13);
+      }
+      if (code > 78 && code < 91) {
+        return String.fromCharCode(code - 13);
+      }
+      if (code > 122) {
+        return String.fromCharCode(code);
+      }
+      if (code < 110 && code > 96) {
+        return String.fromCharCode(code + 13);
+      }
+      return String.fromCharCode(code - 13);
+    })
+    .join('');
+  return newStr;
 }
 
 /**
